@@ -1,0 +1,27 @@
+sudo: false
+language: go
+go:
+- 1.11.x
+install:
+- go get --tags extended github.com/gohugoio/hugo
+- hugo version
+branches:
+  only:
+  - master
+env:
+  matrix:
+  - GO111MODULE=on
+  global:
+    secure: QPgjasx5RV8yk7kqLQy+X2nV2o44Rhcnxyjkkb3DDPxhYbL8Tq37CEgyl87boWaronI2UtKAFqzI6YXrYXtGT91QaWKLmIzoTvvXQP3Vqa5m4PjGeyhygXtivrOBFIolEKDnhHn5+BkSE519ZnKd12bxbgOYeLRDhwVf7mhUCNBEwDLxf2oEu644nke1ukR8TyAmpgzSMiADIGv46PS+zuf6zlD72uelDbwpbyIiKD4IuAKZKdm7ap5V8ApJfFZAt/3Ya2GXJZi7la2/VMOHOe6avc7aKPFc2g/Rp+ge1ZrFT+ikfNh0kwI5YKmNs9TflccQx1oVizLx2c1T2Qk9Sdu4Imh/KuqzG665uPcPFRqXaaElHM2V+csvKdf2ZZktLLPQePgJdr/qTG06OIMzYmm53Lx8wlio10UXXv/I2YJVdG1w6pKob6iAz+M6RTeGZJI2kmmSjLQ3VipvUL7ploFlIrRYAJbPB6felbaYbSBYjdXmnXeo/gKwL9zSaVCscFantp+2THcD930B+sS8SMNWiEkbpqCIxpL4cMIzfdoDp08KL78XiZE/Uv3F4ERO4SpGhtKtH5rKVSU07oh0qmJQ4tAPiIhCZ3MgRJeoUwSvsLFjws4HmIl51vy/c7irRwuYwOOL8owNCFhXR+32NW0VT51hJsRmKZstsU6tIL8=
+script:
+- "./build.sh"
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: "$GITHUB_TOKEN"
+  local_dir: ".build/"
+  on:
+    branch: master
+cache:
+  directories:
+  - "$GOPATH/pkg/mod"
